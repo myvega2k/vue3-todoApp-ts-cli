@@ -1,7 +1,7 @@
 <template>
   <div>
     <TodoHeader></TodoHeader>
-    <TodoInput @add:todo="addTodo"></TodoInput>
+    <TodoInput></TodoInput>
     <TodoList @remove:todo="removeTodo" @toggle:todo="toggleComplete"></TodoList>
     <TodoFooter @clear:todo="clearTodo"></TodoFooter>
   </div>
