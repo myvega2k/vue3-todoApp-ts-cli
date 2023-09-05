@@ -17,7 +17,11 @@ const storage = {
     }
 };
 
+export type State = { todoItems: TodoItem[] };
+const state: State = { todoItems: storage.fetch() };
+
 export const store = createStore({
     plugins: process.env.NODE_ENV === 'development' ?
         [createLogger()] : [],
+    state    
 })
