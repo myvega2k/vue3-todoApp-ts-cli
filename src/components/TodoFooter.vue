@@ -14,7 +14,7 @@ export default defineComponent({
         const store = useStore()
 
         const clearTodo = () => {
-            store.dispatch("clearTodo")
+            store.dispatch("moduleTodo/clearTodo")
         }
         return {clearTodo}
     }

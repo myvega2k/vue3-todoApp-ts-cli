@@ -20,7 +20,7 @@ import { TodoItem } from '@/types/TodoItem'
 import { useStore } from "vuex"
 
 const store = useStore()
-const todoItems = computed(() => store.state.todoItems)
+const todoItems = computed(() => store.state.moduleTodo.todoItems)
 
 onMounted(() => {
   console.log('onMounted...')
@@ -28,13 +28,13 @@ onMounted(() => {
 });
 
 const removeTodo = (todoItem: TodoItem) => {
-  store.dispatch("removeTodo", todoItem)
+  store.dispatch("moduleTodo/removeTodo", todoItem)
   //store.commit("removeTodo", { todoItem, index })
 }
 
 const toggleComplete = (todoItem: TodoItem) => {
   todoItem.completed = !todoItem.completed
-  store.dispatch("toggleTodo", todoItem)
+  store.dispatch("moduleTodo/toggleTodo", todoItem)
   //store.commit("toggleTodo", { todoItem, index })
 }
 
