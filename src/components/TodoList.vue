@@ -2,7 +2,8 @@
   <div>
     <TransitionGroup name="list" tag="ul">
       <li v-for="(todo, idx) in todoItems" :key="idx" class="shadow">
-        <i class="fas fa-check checkBtn" :class="{ checkBtnCompleted: todo.completed }" @click="toggleComplete(todo, idx)"></i>
+        <i class="fas fa-check checkBtn" :class="{ checkBtnCompleted: todo.completed }"
+          @click="toggleComplete(todo, idx)"></i>
         <span :class="{ textCompleted: todo.completed }">{{ todo.item }}</span>
 
         <span class="removeBtn" @click="removeTodo(todo, idx)">
@@ -15,12 +16,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { TodoItem } from '@/types/TodoItem'
 import { useStore } from "vuex"
 
 const store = useStore()
 const todoItems = computed(() => store.state.todoItems)
+
+onMounted(() => {
+  console.log('onMounted...')
+  store.dispatch("loadTodoItems")
+});
 
 const removeTodo = (todoItem: TodoItem, index: number) => {
   store.commit("removeTodo", { todoItem, index })
@@ -37,11 +43,13 @@ const toggleComplete = (todoItem: TodoItem, index: number) => {
 .list-leave-active {
   transition: all 0.5s ease;
 }
+
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
 }
+
 i,
 span {
   cursor: pointer;
@@ -83,5 +91,4 @@ li {
 .textCompleted {
   text-decoration: line-through;
   color: #b3adad;
-}
-</style>
+}</style>
