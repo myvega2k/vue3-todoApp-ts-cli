@@ -23,10 +23,12 @@ export const moduleTodo: Module<ModuleTodoState, RootState> = {
                 })
                 .catch(error => {
                     if (axios.isAxiosError(error)) {
-                        console.log(error?.response?.status +
+                        console.error(error?.response?.status +
                             ' : ' + error.message)
+                        throw error    
                     } else {
                         console.error(error);
+                        throw error
                     }
                 });
         }, //loadTodoItems
