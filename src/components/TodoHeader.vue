@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>TODO it!</h1>
+        <h1>TODO it!({{ mode }})</h1>
     </div>
 </template>
 
@@ -9,9 +9,9 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
     setup() {
+        const mode = process.env.VUE_APP_TITLE
 
-
-        return {}
+        return { mode }
     }
 })
 </script>
