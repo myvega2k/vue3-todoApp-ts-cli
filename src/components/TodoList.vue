@@ -6,7 +6,7 @@
           @click="toggleComplete(todo, idx)"></i>
         <span :class="{ textCompleted: todo.completed }">{{ todo.item }}</span>
 
-        <span class="removeBtn" @click="removeTodo(todo, idx)">
+        <span class="removeBtn" @click="removeTodo(todo)">
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { TodoItem } from '@/types/TodoItem'
 import { useStore } from "vuex"
 
@@ -28,8 +28,9 @@ onMounted(() => {
   store.dispatch("loadTodoItems")
 });
 
-const removeTodo = (todoItem: TodoItem, index: number) => {
-  store.commit("removeTodo", { todoItem, index })
+const removeTodo = (todoItem: TodoItem) => {
+  store.dispatch("removeTodo", todoItem)
+  //store.commit("removeTodo", { todoItem, index })
 }
 
 const toggleComplete = (todoItem: TodoItem, index: number) => {
