@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onBeforeMount, onMounted } from 'vue'
 import { TodoItem } from '@/types/TodoItem'
 import { useStore } from "vuex"
 
