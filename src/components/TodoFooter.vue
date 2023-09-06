@@ -14,7 +14,7 @@ export default defineComponent({
         const store = useStore()
 
         const clearTodo = () => {
-            store.commit("clearTodo")
+            store.dispatch("clearTodo")
         }
         return {clearTodo}
     }
