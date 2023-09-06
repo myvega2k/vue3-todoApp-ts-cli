@@ -6,13 +6,15 @@ import http from "@/common/http-common"
 export interface ModulePostState {
     posts: Post[]
     post: Post
+    loadingStatus: boolean
 }
 
 export const modulePost: Module<ModulePostState, RootState> = {
     namespaced: true,
     state: () => ({
         posts: [],
-        post: { id: 0, text: '' }
+        post: { id: 0, text: '' },
+        loadingStatus: false
     }),
     mutations: {
         setPosts(state: ModulePostState, items: Post[]) {
@@ -21,6 +23,9 @@ export const modulePost: Module<ModulePostState, RootState> = {
         setPost(state: ModulePostState, item: Post) {
             state.post = item;
         },
+        setLoadingStatus(state: ModulePostState, newLoadingStatus) {
+            state.loadingStatus = newLoadingStatus
+        }
     }, //mutations
     getters: {
         getPosts(state: ModulePostState) {
@@ -32,10 +37,14 @@ export const modulePost: Module<ModulePostState, RootState> = {
     }, //getters
     actions: {
         loadPosts({ commit }) {
+            commit('setLoadingStatus', true)
             http
                 .get(`/posts`)
                 .then((res) => res.data)
-                .then((items) => commit("setPosts", items))
+                .then((items) => {
+                    commit("setPosts", items)
+                    commit('setLoadingStatus', false)
+                })
                 .catch((err) => console.error(err));
         },
         loadPost({ commit }, payload: Post) {
